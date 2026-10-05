@@ -1,0 +1,24 @@
+{
+  "@context": {
+    "@protected": true,
+    "coverage": {
+      "@id": "https://github.com/aalbata/revocation-continuity-iot/blob/main/docs/vocabulary.md#coverage",
+      "@context": {
+        "authority": {
+          "@id": "https://github.com/aalbata/revocation-continuity-iot/blob/main/docs/vocabulary.md#authority",
+          "@type": "@id"
+        },
+        "epoch": "https://github.com/aalbata/revocation-continuity-iot/blob/main/docs/vocabulary.md#epoch",
+        "sequence": "https://github.com/aalbata/revocation-continuity-iot/blob/main/docs/vocabulary.md#sequence",
+        "coveredThrough": {
+          "@id": "https://github.com/aalbata/revocation-continuity-iot/blob/main/docs/vocabulary.md#coveredThrough",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        }
+      }
+    },
+    "DeviceAuthorizationCredential": "https://github.com/aalbata/revocation-continuity-iot/blob/main/docs/vocabulary.md#DeviceAuthorizationCredential",
+    "deviceId": "https://github.com/aalbata/revocation-continuity-iot/blob/main/docs/vocabulary.md#deviceId",
+    "organization": "https://github.com/aalbata/revocation-continuity-iot/blob/main/docs/vocabulary.md#organization",
+    "allowedAction": "https://github.com/aalbata/revocation-continuity-iot/blob/main/docs/vocabulary.md#allowedAction"
+  }
+}

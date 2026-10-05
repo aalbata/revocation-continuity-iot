@@ -1,0 +1,484 @@
+{
+ "fixtures": 28,
+ "agree": 26,
+ "python_as_expected": 28,
+ "node_as_expected": 26,
+ "rows": [
+  {
+   "name": "credential-valid",
+   "operation": "credential",
+   "expect": "accept",
+   "note": "issued by the Python stack",
+   "python": {
+    "verdict": "accept",
+    "detail": "OK"
+   },
+   "node": {
+    "verdict": "accept",
+    "detail": "OK"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "credential-valid-node-issued",
+   "operation": "credential",
+   "expect": "accept",
+   "note": "issued by the Node.js stack",
+   "python": {
+    "verdict": "accept",
+    "detail": "OK"
+   },
+   "node": {
+    "verdict": "accept",
+    "detail": "OK"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "credential-tampered-claim",
+   "operation": "credential",
+   "expect": "reject",
+   "note": "a claim was changed after signing",
+   "python": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "credential-tampered-proof",
+   "operation": "credential",
+   "expect": "reject",
+   "note": "the proof value was changed",
+   "python": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "credential-expired",
+   "operation": "credential",
+   "expect": "reject",
+   "note": "validUntil is in the past",
+   "python": {
+    "verdict": "reject",
+    "detail": "EXPIRED"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "EXPIRED"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "credential-not-yet-valid",
+   "operation": "credential",
+   "expect": "reject",
+   "note": "validFrom is in the future",
+   "python": {
+    "verdict": "reject",
+    "detail": "NOT_YET_VALID"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "NOT_YET_VALID"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "credential-unknown-key",
+   "operation": "credential",
+   "expect": "reject",
+   "note": "signed with a key that is absent from the DID document",
+   "python": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "MALFORMED"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "credential-foreign-signer",
+   "operation": "credential",
+   "expect": "reject",
+   "note": "signed by another issuer's key",
+   "python": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "credential-after-rotation",
+   "operation": "credential",
+   "expect": "accept",
+   "note": "earlier key still listed after rotation",
+   "python": {
+    "verdict": "accept",
+    "detail": "OK"
+   },
+   "node": {
+    "verdict": "accept",
+    "detail": "OK"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "credential-key-removed",
+   "operation": "credential",
+   "expect": "reject",
+   "note": "signing key removed from the DID document",
+   "python": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "MALFORMED"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "credential-inline-context",
+   "operation": "credential",
+   "expect": "accept",
+   "note": "extension terms given as an inline context object",
+   "python": {
+    "verdict": "accept",
+    "detail": "OK"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "agree": false,
+   "python_as_expected": true,
+   "node_as_expected": false
+  },
+  {
+   "name": "presentation-valid",
+   "operation": "presentation",
+   "expect": "accept",
+   "note": "holder proof with challenge and domain",
+   "python": {
+    "verdict": "accept",
+    "detail": "OK"
+   },
+   "node": {
+    "verdict": "accept",
+    "detail": "OK"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "presentation-wrong-challenge",
+   "operation": "presentation",
+   "expect": "reject",
+   "note": "challenge differs from the one issued",
+   "python": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "presentation-wrong-domain",
+   "operation": "presentation",
+   "expect": "reject",
+   "note": "proof was made for another domain",
+   "python": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "presentation-bad-credential",
+   "operation": "presentation",
+   "expect": "reject",
+   "note": "embedded credential was tampered",
+   "python": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "presentation-holder-changed",
+   "operation": "presentation",
+   "expect": "reject",
+   "note": "holder field changed after signing",
+   "python": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "node": {
+    "verdict": "reject",
+    "detail": "PROOF"
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-clear",
+   "operation": "status",
+   "expect": "clear",
+   "note": "bit not set",
+   "python": {
+    "verdict": "clear",
+    "detail": ""
+   },
+   "node": {
+    "verdict": "clear",
+    "detail": ""
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-set",
+   "operation": "status",
+   "expect": "set",
+   "note": "bit set",
+   "python": {
+    "verdict": "set",
+    "detail": ""
+   },
+   "node": {
+    "verdict": "set",
+    "detail": ""
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-other-entry-set",
+   "operation": "status",
+   "expect": "clear",
+   "note": "a different entry is set",
+   "python": {
+    "verdict": "clear",
+    "detail": ""
+   },
+   "node": {
+    "verdict": "clear",
+    "detail": ""
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-reused-index",
+   "operation": "status",
+   "expect": "set",
+   "note": "a new credential that reuses a revoked index",
+   "python": {
+    "verdict": "set",
+    "detail": ""
+   },
+   "node": {
+    "verdict": "set",
+    "detail": ""
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-purpose-mismatch",
+   "operation": "status",
+   "expect": "error",
+   "note": "list purpose differs from the entry purpose",
+   "python": {
+    "verdict": "error",
+    "detail": "STATUS_VERIFICATION_ERROR: status purpose mismatch"
+   },
+   "node": {
+    "verdict": "error",
+    "detail": "The status purpose \"suspension\" of the status list credential does not match the status purpose \"revocation\" in the credential."
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-foreign-issuer",
+   "operation": "status",
+   "expect": "error",
+   "note": "list signed by another issuer",
+   "python": {
+    "verdict": "error",
+    "detail": "STATUS_VERIFICATION_ERROR: issuers do not match"
+   },
+   "node": {
+    "verdict": "error",
+    "detail": "Issuers of the status list credential and verifiable credential do not match."
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-list-tampered",
+   "operation": "status",
+   "expect": "error",
+   "note": "encoded list changed after signing",
+   "python": {
+    "verdict": "error",
+    "detail": "STATUS_VERIFICATION_ERROR: signature does not verify"
+   },
+   "node": {
+    "verdict": "error",
+    "detail": "Invalid signature."
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-list-missing",
+   "operation": "status",
+   "expect": "error",
+   "note": "the list cannot be retrieved",
+   "python": {
+    "verdict": "error",
+    "detail": "STATUS_RETRIEVAL_ERROR"
+   },
+   "node": {
+    "verdict": "error",
+    "detail": "Document loader unable to load URL \"https://issuer-a.rcbench.test/status/revocation\"."
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-list-short",
+   "operation": "status",
+   "expect": "error",
+   "note": "list has fewer than 131,072 entries",
+   "python": {
+    "verdict": "error",
+    "detail": "STATUS_LIST_LENGTH_ERROR: 8192 entries"
+   },
+   "node": {
+    "verdict": "clear",
+    "detail": ""
+   },
+   "agree": false,
+   "python_as_expected": true,
+   "node_as_expected": false
+  },
+  {
+   "name": "status-index-out-of-range",
+   "operation": "status",
+   "expect": "error",
+   "note": "index beyond the list",
+   "python": {
+    "verdict": "error",
+    "detail": "RANGE_ERROR: index 200000"
+   },
+   "node": {
+    "verdict": "error",
+    "detail": "Position \"200000\" is out of range \"0-131071\"."
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-list-expired",
+   "operation": "status",
+   "expect": "error",
+   "note": "validUntil of the list is in the past",
+   "python": {
+    "verdict": "error",
+    "detail": "STATUS_VERIFICATION_ERROR: validUntil is in the past"
+   },
+   "node": {
+    "verdict": "error",
+    "detail": "The current date time (2026-10-04T23:31:40.833Z) is after \"validUntil\" (2026-09-21T14:13:19.000Z)."
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  },
+  {
+   "name": "status-list-unknown-key",
+   "operation": "status",
+   "expect": "error",
+   "note": "list signed with a key absent from the DID document",
+   "python": {
+    "verdict": "error",
+    "detail": "STATUS_VERIFICATION_ERROR: verification method is not authorized for this purpose"
+   },
+   "node": {
+    "verdict": "error",
+    "detail": "Document loader unable to load URL \"did:web:issuer-a.rcbench.test#key-2\"."
+   },
+   "agree": true,
+   "python_as_expected": true,
+   "node_as_expected": true
+  }
+ ]
+}

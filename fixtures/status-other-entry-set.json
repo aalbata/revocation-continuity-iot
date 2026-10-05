@@ -1,0 +1,134 @@
+{
+ "credential": {
+  "@context": [
+   "https://www.w3.org/ns/credentials/v2",
+   "https://raw.githubusercontent.com/aalbata/revocation-continuity-iot/main/contexts/rcbench-v1.jsonld"
+  ],
+  "credentialStatus": [
+   {
+    "id": "https://issuer-a.rcbench.test/status/revocation#7",
+    "statusListCredential": "https://issuer-a.rcbench.test/status/revocation",
+    "statusListIndex": "7",
+    "statusPurpose": "revocation",
+    "type": "BitstringStatusListEntry"
+   }
+  ],
+  "credentialSubject": {
+   "allowedAction": [
+    "command"
+   ],
+   "deviceId": "d001",
+   "id": "did:key:z6Mkkf1vbmtMTLVuoG8K4wamUPNzcMtfoGem6L3G8Ep3cz4i",
+   "organization": "contractor"
+  },
+  "id": "urn:uuid:5f0c1a2e-6d1b-4c56-9a51-0d7c8e3b2a10",
+  "issuer": "did:web:issuer-a.rcbench.test",
+  "proof": {
+   "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://raw.githubusercontent.com/aalbata/revocation-continuity-iot/main/contexts/rcbench-v1.jsonld"
+   ],
+   "created": "2026-09-21T14:12:50.000Z",
+   "cryptosuite": "eddsa-jcs-2022",
+   "proofPurpose": "assertionMethod",
+   "proofValue": "z2s4uKS7ESXksK9pnehfcQogMfqk1RXzDTZkYFpUQRNZ5KCYFen7vXDWkCjVGri1abmeLKcVtsdPSBvRaYP3RJ5ES",
+   "type": "DataIntegrityProof",
+   "verificationMethod": "did:web:issuer-a.rcbench.test#key-1"
+  },
+  "type": [
+   "VerifiableCredential",
+   "DeviceAuthorizationCredential"
+  ],
+  "validFrom": "2026-09-21T14:12:20.000Z",
+  "validUntil": "2026-09-21T15:13:20.000Z"
+ },
+ "documents": {
+  "did:web:issuer-a.rcbench.test": {
+   "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/multikey/v1"
+   ],
+   "assertionMethod": [
+    "did:web:issuer-a.rcbench.test#key-1"
+   ],
+   "authentication": [
+    "did:web:issuer-a.rcbench.test#key-1"
+   ],
+   "id": "did:web:issuer-a.rcbench.test",
+   "verificationMethod": [
+    {
+     "controller": "did:web:issuer-a.rcbench.test",
+     "id": "did:web:issuer-a.rcbench.test#key-1",
+     "publicKeyMultibase": "z6Mkr79so4j3jjRGGySWucEjUorP4krzc3PuHkCNeScCB8v5",
+     "type": "Multikey"
+    }
+   ]
+  },
+  "did:web:issuer-b.rcbench.test": {
+   "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/multikey/v1"
+   ],
+   "assertionMethod": [
+    "did:web:issuer-b.rcbench.test#key-1"
+   ],
+   "authentication": [
+    "did:web:issuer-b.rcbench.test#key-1"
+   ],
+   "id": "did:web:issuer-b.rcbench.test",
+   "verificationMethod": [
+    {
+     "controller": "did:web:issuer-b.rcbench.test",
+     "id": "did:web:issuer-b.rcbench.test#key-1",
+     "publicKeyMultibase": "z6MkwKLB5Tvy8H9HwDmt4UntYDY9fZaTiZ545iSKM8HbLCBi",
+     "type": "Multikey"
+    }
+   ]
+  }
+ },
+ "expect": "clear",
+ "lists": [
+  {
+   "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://raw.githubusercontent.com/aalbata/revocation-continuity-iot/main/contexts/rcbench-v1.jsonld"
+   ],
+   "credentialSubject": {
+    "coverage": {
+     "authority": "did:web:issuer-a.rcbench.test",
+     "coveredThrough": "2026-09-21T14:13:15.000Z",
+     "epoch": "fixture",
+     "sequence": 2
+    },
+    "encodedList": "uH4sIAAAAAAACCu3BIQEAAAACIKc73RkWIA0AAAAAAAAAAAAAAAAAAABwNjIlqLAAQAAA",
+    "id": "https://issuer-a.rcbench.test/status/revocation#list",
+    "statusPurpose": "revocation",
+    "ttl": 5000,
+    "type": "BitstringStatusList"
+   },
+   "id": "https://issuer-a.rcbench.test/status/revocation",
+   "issuer": "did:web:issuer-a.rcbench.test",
+   "proof": {
+    "@context": [
+     "https://www.w3.org/ns/credentials/v2",
+     "https://raw.githubusercontent.com/aalbata/revocation-continuity-iot/main/contexts/rcbench-v1.jsonld"
+    ],
+    "created": "2026-09-21T14:12:50.000Z",
+    "cryptosuite": "eddsa-jcs-2022",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z4dfgGMY2JYmX7wqrafTho87JqLCp7CdEWihEGwPcKp5fL3M157hR1oF2xSZCHC5cSCVB9toLFP4TJHQkRk8pf6Fp",
+    "type": "DataIntegrityProof",
+    "verificationMethod": "did:web:issuer-a.rcbench.test#key-1"
+   },
+   "type": [
+    "VerifiableCredential",
+    "BitstringStatusListCredential"
+   ],
+   "validFrom": "2026-09-21T14:13:15.000Z",
+   "validUntil": "2046-09-16T14:13:20.000Z"
+  }
+ ],
+ "name": "status-other-entry-set",
+ "note": "a different entry is set",
+ "operation": "status"
+}

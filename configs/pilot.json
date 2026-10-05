@@ -1,0 +1,381 @@
+{
+ "name": "pilot",
+ "conditions": [
+  {
+   "id": "pilot-online-o0",
+   "policy": "online",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "outage": 0.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared"
+  },
+  {
+   "id": "pilot-online-o30",
+   "policy": "online",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "outage": 30.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared"
+  },
+  {
+   "id": "pilot-coordinated-o0",
+   "policy": "coordinated",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "outage": 0.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared"
+  },
+  {
+   "id": "pilot-coordinated-o30",
+   "policy": "coordinated",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "outage": 30.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared"
+  },
+  {
+   "id": "pilot-profile-o0",
+   "policy": "profile",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "outage": 0.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared"
+  },
+  {
+   "id": "pilot-profile-o30",
+   "policy": "profile",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "outage": 30.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared"
+  },
+  {
+   "id": "pilot-cached-o0",
+   "policy": "cached",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "outage": 0.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 60.0
+   }
+  },
+  {
+   "id": "pilot-shortlived-o0",
+   "policy": "shortlived",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "outage": 0.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 10.0
+   }
+  },
+  {
+   "id": "pilot-cached-o30",
+   "policy": "cached",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "outage": 30.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 60.0
+   }
+  },
+  {
+   "id": "pilot-shortlived-o30",
+   "policy": "shortlived",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "outage": 30.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 10.0
+   }
+  },
+  {
+   "id": "pilot-cached-T30-o0",
+   "policy": "cached",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "outage": 0.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 30.0
+   }
+  },
+  {
+   "id": "pilot-cached-T30-o30",
+   "policy": "cached",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "outage": 30.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 30.0
+   }
+  },
+  {
+   "id": "pilot-cached-T120-o0",
+   "policy": "cached",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "outage": 0.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 120.0
+   }
+  },
+  {
+   "id": "pilot-cached-T120-o30",
+   "policy": "cached",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "outage": 30.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 120.0
+   }
+  },
+  {
+   "id": "pilot-shortlived-T5-o0",
+   "policy": "shortlived",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "outage": 0.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 5.0
+   }
+  },
+  {
+   "id": "pilot-shortlived-T5-o30",
+   "policy": "shortlived",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "outage": 30.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 5.0
+   }
+  },
+  {
+   "id": "pilot-shortlived-T20-o0",
+   "policy": "shortlived",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "outage": 0.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 20.0
+   }
+  },
+  {
+   "id": "pilot-shortlived-T20-o30",
+   "policy": "shortlived",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "outage": 30.0,
+   "budget": 30.0,
+   "rtt_ms": 50.0,
+   "devices": 10,
+   "stack": "node",
+   "failure": "shared",
+   "overrides": {
+    "token_lifetime": 20.0
+   }
+  }
+ ]
+}
