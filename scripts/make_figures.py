@@ -55,8 +55,8 @@ def manifest() -> dict:
         return json.load(handle)
 
 
-def _box(ax, x, y, w, h, text, face="#FFFFFF", edge="#333333", size=6.5, weight="normal", style="round"):
-    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle=f"{style},pad=0.0,rounding_size=0.012", linewidth=0.6,
+def _box(ax, x, y, w, h, text, face="#FFFFFF", edge="#333333", size=7.0, weight="normal", style="round"):
+    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle=f"{style},pad=0.0,rounding_size=0.05", linewidth=0.6,
                                 facecolor=face, edgecolor=edge))
     ax.text(x + w / 2, y + h / 2, text, ha="center", va="center", fontsize=size, fontweight=weight, linespacing=1.15)
 
@@ -67,59 +67,69 @@ def _arrow(ax, start, end, color="#333333", style="-|>", width=0.6, dashed=False
 
 
 def figure1() -> None:
-    fig = plt.figure(figsize=(TWO, 3.35))
+    """Schematic drawn in inch coordinates, so that every label is 7 pt or larger at the printed width."""
+    width, height = TWO, 4.1
+    fig = plt.figure(figsize=(width, height))
     ax = fig.add_axes([0, 0, 1, 1])
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
+    ax.set_xlim(0, width)
+    ax.set_ylim(0, height)
     ax.axis("off")
-    ax.text(0.305, 0.965, "System under test", ha="center", fontsize=8)
-    ax.text(0.835, 0.965, "Benchmark", ha="center", fontsize=8)
-    ax.plot([0.655, 0.655], [0.03, 0.97], color="#999999", linewidth=0.5, linestyle=(0, (2, 2)))
-    for x, label in ((0.10, "Issuer A\n(contractor)"), (0.36, "Issuer B\n(building operator)")):
-        _box(ax, x, 0.80, 0.19, 0.115, label + "\nDID document, status lists", face="#EEF3F9")
-    ax.add_patch(FancyBboxPatch((0.02, 0.675), 0.61, 0.07, boxstyle="round,pad=0.0,rounding_size=0.012",
+    left, right, split, end = 0.08, 4.55, 4.68, 7.02
+    ax.text((left + right) / 2, 3.95, "System under test", ha="center", va="center", fontsize=8)
+    ax.text((split + end) / 2, 3.95, "Benchmark", ha="center", va="center", fontsize=8)
+    ax.plot([split, split], [0.05, 4.05], color="#999999", linewidth=0.5, linestyle=(0, (2, 2)))
+    issuers = ((0.62, "Issuer A\n(contractor)"), (2.42, "Issuer B\n(building operator)"))
+    for x, label in issuers:
+        _box(ax, x, 3.18, 1.62, 0.56, label + "\nDID document, status lists", face="#EEF3F9")
+        _arrow(ax, (x + 0.81, 3.18), (x + 0.81, 3.0), style="<|-|>")
+    ax.add_patch(FancyBboxPatch((left, 2.62), right - left, 0.38, boxstyle="round,pad=0.0,rounding_size=0.05",
                                 linewidth=0.5, facecolor="#F6F6F6", edgecolor="#888888", linestyle=(0, (3, 2))))
-    ax.text(0.325, 0.71, "Backhaul with configured delay and scheduled outage: status fetch, "
-            "revocation notification, key resolution", ha="center", va="center", fontsize=6.3)
-    for x in (0.195, 0.455):
-        _arrow(ax, (x, 0.80), (x, 0.745), style="<|-|>")
-    names = ("Building domain", "Contractor domain", "Provider domain")
-    for i, name in enumerate(names):
-        x = 0.02 + i * 0.21
-        ax.add_patch(FancyBboxPatch((x, 0.27), 0.19, 0.345, boxstyle="round,pad=0.0,rounding_size=0.012",
+    ax.text((left + right) / 2, 2.81, "Backhaul with configured delay and scheduled outage\n"
+            "status fetch, revocation notification, key resolution", ha="center", va="center", fontsize=7,
+            linespacing=1.15)
+    gap = 0.1
+    domain = (right - left - 2 * gap) / 3
+    centers = []
+    for i, name in enumerate(("Building domain", "Contractor domain", "Provider domain")):
+        x = left + i * (domain + gap)
+        centers.append(x + domain / 2)
+        ax.add_patch(FancyBboxPatch((x, 1.02), domain, 1.42, boxstyle="round,pad=0.0,rounding_size=0.05",
                                     linewidth=0.7, facecolor="#FBF7EE", edgecolor="#555555"))
-        ax.text(x + 0.095, 0.59, name, ha="center", va="center", fontsize=6.8)
-        _box(ax, x + 0.012, 0.475, 0.166, 0.085, "Gateway: verify credential,\nissue local token", size=5.9)
-        _box(ax, x + 0.012, 0.38, 0.166, 0.075, "MQTT broker: session,\ntopic permission", size=5.9)
-        _box(ax, x + 0.012, 0.285, 0.166, 0.075, "Executor: protected\ncommand", size=5.9)
-        _arrow(ax, (x + 0.095, 0.675), (x + 0.095, 0.615), style="<|-|>")
-    _box(ax, 0.03, 0.06, 0.17, 0.10, "Device\nholder key, credential", face="#EEF6EE")
-    _arrow(ax, (0.075, 0.16), (0.075, 0.27))
-    ax.text(0.069, 0.215, "1 present", ha="right", va="center", fontsize=5.9)
-    _arrow(ax, (0.105, 0.27), (0.105, 0.16))
-    ax.text(0.111, 0.238, "2 token", ha="left", va="center", fontsize=5.9)
-    _arrow(ax, (0.175, 0.16), (0.175, 0.27))
-    ax.text(0.181, 0.192, "3 publish", ha="left", va="center", fontsize=5.9)
-    _box(ax, 0.455, 0.06, 0.14, 0.10, "Device after\nhandover", face="#EEF6EE")
-    _arrow(ax, (0.20, 0.11), (0.455, 0.11), dashed=True)
-    ax.text(0.33, 0.125, "4 handover: exchange the token\nat the next domain", ha="center", va="bottom", fontsize=5.9)
-    _arrow(ax, (0.525, 0.16), (0.525, 0.27))
-    ax.text(0.33, 0.045, "Two verification stacks process the same credentials:\n"
-            "Node.js (Digital Bazaar libraries) and Python", ha="center", va="center", fontsize=5.9)
+        ax.text(x + domain / 2, 2.31, name, ha="center", va="center", fontsize=7.5)
+        _box(ax, x + 0.07, 1.78, domain - 0.14, 0.42, "Gateway\nverify credential,\nissue local token")
+        _box(ax, x + 0.07, 1.42, domain - 0.14, 0.30, "MQTT broker\nsession, topic permission")
+        _box(ax, x + 0.07, 1.08, domain - 0.14, 0.28, "Executor\nprotected command")
+        _arrow(ax, (x + domain / 2, 2.62), (x + domain / 2, 2.44), style="<|-|>")
+    _box(ax, 0.18, 0.36, 1.22, 0.40, "Device\nholder key, credential", face="#EEF6EE")
+    _arrow(ax, (0.50, 0.76), (0.50, 1.02))
+    ax.text(0.45, 0.89, "1 present", ha="right", va="center", fontsize=7)
+    _arrow(ax, (0.78, 1.02), (0.78, 0.76))
+    ax.text(0.83, 0.93, "2 token", ha="left", va="center", fontsize=7)
+    _arrow(ax, (1.25, 0.76), (1.25, 1.02))
+    ax.text(1.30, 0.84, "3 publish", ha="left", va="center", fontsize=7)
+    _box(ax, centers[2] - 0.52, 0.36, 1.04, 0.40, "Device after\nhandover", face="#EEF6EE")
+    _arrow(ax, (centers[2], 0.76), (centers[2], 1.02))
+    _arrow(ax, (1.40, 0.56), (centers[2] - 0.52, 0.56), dashed=True)
+    ax.text(2.42, 0.61, "4 handover: exchange the token\nat the next domain", ha="center", va="bottom", fontsize=7,
+            linespacing=1.15)
+    ax.text((left + right) / 2, 0.16, "Two verification stacks process the same credentials:\n"
+            "Node.js (Digital Bazaar libraries) and Python", ha="center", va="center", fontsize=7, linespacing=1.15)
+    x0, w = 4.82, end - 4.82
     steps = [
-        (0.815, "Seeded lifecycle trace\nrevoke, suspend, hand over, restart,\nrotate key, outage of 0 to 120 s", "#EEF3F9"),
-        (0.645, "Nine integration policies\nfour baselines, the profile,\nthree ablations, one negative control", "#FBF7EE"),
-        (0.475, "Live runs on real broker and proofs\n30 runs per primary condition (10 devices),\n"
-                "10 runs per sensitivity condition (up to 100)", "#EEF6EE"),
-        (0.305, "Calibrated simulation\nsame decision code,\n1,000 and 10,000 devices", "#EEF6EE"),
-        (0.075, "Measures per run\ntime from revocation commit to last\nunauthorized command, share of "
-                "unauthorized\nattempts executed, benign completion,\nlatency, traffic", "#F6F6F6"),
+        (3.30, 0.48, "Seeded lifecycle trace\nrevoke, suspend, hand over, restart,\nrotate key, outage of 0 to 120 s",
+         "#EEF3F9"),
+        (2.62, 0.48, "Nine integration policies\nfour baselines, the profile,\nthree ablations, one negative control",
+         "#FBF7EE"),
+        (1.80, 0.62, "Live runs on real broker and proofs\n30 runs per primary condition (10 devices),\n"
+                     "10 runs per sensitivity condition\n(up to 100 devices)", "#EEF6EE"),
+        (1.12, 0.48, "Calibrated simulation\nsame decision code,\n1000 and 10,000 devices", "#EEF6EE"),
+        (0.16, 0.76, "Measures per run\ntime from revocation commit to last\nunauthorized command, share of\n"
+                     "unauthorized attempts executed,\nbenign completion, latency, traffic", "#F6F6F6"),
     ]
-    for y, text, face in steps:
-        height = 0.16 if y == 0.075 else 0.115
-        _box(ax, 0.685, y, 0.30, height, text, face=face, size=6.2)
-    for top, bottom in ((0.815, 0.76), (0.645, 0.59), (0.475, 0.42), (0.305, 0.235)):
-        _arrow(ax, (0.835, top), (0.835, bottom))
+    for y, h, text, face in steps:
+        _box(ax, x0, y, w, h, text, face=face)
+    for upper, lower in zip(steps, steps[1:]):
+        _arrow(ax, (x0 + w / 2, upper[0]), (x0 + w / 2, lower[0] + lower[1]))
     save(fig, "fig1_overview")
 
 
@@ -151,8 +161,8 @@ def figure2() -> None:
                             next(e["t"] for e in config["events"] if e["type"] == "restart"))
     early, start, end, o1, o2, horizon, restart = first_commit
     ax.axvspan(o1, o2, color="#DDDDDD", alpha=0.55, linewidth=0)
-    ax.axvspan(start, end, color="#CC3311", alpha=0.35, linewidth=0)
-    ax.axvline(early, color="#CC3311", linewidth=0.7, linestyle=(0, (1, 1)))
+    ax.axvspan(start, end, facecolor="#CC3311", edgecolor="#CC3311", linewidth=0.5, zorder=4)
+    ax.axvline(early, color="#CC3311", linewidth=0.7, linestyle=(0, (1, 1)), zorder=4)
     ax.axvline(restart, color="#333333", linewidth=0.6, linestyle=(0, (4, 2)))
     ax.set_yticks(range(len(ORDER)))
     ax.set_yticklabels([STYLE[p][0].replace("without session ", "without session\n") for p in reversed(ORDER)],
@@ -164,8 +174,8 @@ def figure2() -> None:
     for side in ("top", "right"):
         ax.spines[side].set_visible(False)
     top = len(ORDER) - 0.35
-    ax.text((o1 + o2) / 2 + 3.0, top, "outage", ha="center", va="bottom", fontsize=6)
-    ax.annotate("restart", xy=(restart, top), xytext=(restart, top + 0.5), fontsize=6, va="bottom",
+    ax.text((o1 + o2) / 2 + 3.0, top, "outage", ha="center", va="bottom", fontsize=7)
+    ax.annotate("restart", xy=(restart, top), xytext=(restart, top + 0.5), fontsize=7, va="bottom",
                 ha="center", annotation_clip=False,
                 arrowprops={"arrowstyle": "-", "linewidth": 0.4, "color": "#333333", "shrinkA": 1, "shrinkB": 0,
                             "relpos": (0.5, 0.0)})
@@ -174,8 +184,8 @@ def figure2() -> None:
 
 def figure3() -> None:
     data = manifest()["live"]["primary"]
-    fig, ax = plt.subplots(figsize=(ONE, 2.9))
-    fig.subplots_adjust(left=0.14, right=0.975, top=0.80, bottom=0.14)
+    fig, ax = plt.subplots(figsize=(ONE, 3.3))
+    fig.subplots_adjust(left=0.14, right=0.975, top=0.775, bottom=0.125)
     sizes = {0: 9, 5: 16, 30: 26, 120: 40}
     for policy in ["no_persist"] + [p for p in ORDER if p != "no_persist"]:
         label, color, marker = STYLE[policy]
@@ -204,13 +214,13 @@ def figure3() -> None:
                           markersize=5.0 if STYLE[p][2] == "*" else 3.5,
                           markeredgewidth=0.4 if data[f"{p}-o0"]["censored"] else 0.6,
                           markerfacecolor="white" if data[f"{p}-o0"]["censored"] else STYLE[p][1],
-                          label=STYLE[p][0]) for p in ORDER]
-    fig.legend(handles=handles, loc="upper center", ncol=3, fontsize=5.4, columnspacing=0.8, handletextpad=0.3,
-               bbox_to_anchor=(0.5, 1.0))
+                          label=STYLE[p][0].replace("without session ", "without session\n")) for p in ORDER]
+    fig.legend(handles=handles, loc="upper center", ncol=2, fontsize=7, columnspacing=1.0, handletextpad=0.4,
+               labelspacing=0.25, handlelength=1.8, bbox_to_anchor=(0.52, 1.0))
     key = [plt.scatter([], [], s=sizes[o], marker="o", facecolor="#666666", edgecolor="#666666", linewidth=0.4,
                        label=f"{o} s") for o in (0, 5, 30, 120)]
-    ax.legend(handles=key, title="Outage", loc="lower left", fontsize=5.6, title_fontsize=5.6, borderpad=0.2,
-              labelspacing=0.35, handletextpad=0.2, bbox_to_anchor=(0.02, 0.08))
+    ax.legend(handles=key, title="Outage", loc="lower left", fontsize=7, title_fontsize=7, borderpad=0.2,
+              labelspacing=0.3, handletextpad=0.2, bbox_to_anchor=(0.02, 0.06))
     save(fig, "fig3_frontier")
 
 
@@ -232,7 +242,7 @@ def figure4() -> None:
                 if entry and entry[measure]:
                     xs.append(n)
                     ys.append(entry[measure]["mean"] * scale)
-            ax.plot(xs, ys, color=color, marker=marker, markersize=3, linewidth=0.8, label=name)
+            ax.plot(xs, ys, color=color, marker=marker, markersize=4.5, linewidth=0.8, label=name)
             for n, section, key in ((10, "primary", f"{policy}-o{outage}"),
                                     (100, "sensitivity", f"n100-{policy}-o{outage}")):
                 entry = live[section].get(key)
@@ -241,7 +251,7 @@ def figure4() -> None:
                                linewidth=0.8, zorder=4)
         ax.set_xscale("log")
         ax.set_xticks(populations)
-        ax.set_xticklabels(["10", "100", "1,000", "10,000"])
+        ax.set_xticklabels(["10", "100", "1000", "10,000"])
         ax.minorticks_off()
         ax.set_xlabel("Devices")
         ax.set_ylabel(label)
@@ -252,10 +262,10 @@ def figure4() -> None:
     axes[0].set_yticks([0, 1, 10, 100])
     axes[0].set_yticklabels(["0", "1", "10", "100"])
     axes[1].set_ylim(60, 100)
-    axes[0].text(-0.13, 1.05, "(a)", transform=axes[0].transAxes, fontsize=7.5)
-    axes[1].text(-0.13, 1.05, "(b)", transform=axes[1].transAxes, fontsize=7.5)
+    axes[0].text(-0.13, 1.05, "a)", transform=axes[0].transAxes, fontsize=7.5)
+    axes[1].text(-0.13, 1.05, "b)", transform=axes[1].transAxes, fontsize=7.5)
     handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="upper center", ncol=5, fontsize=6.2, columnspacing=1.2, handletextpad=0.4,
+    fig.legend(handles, labels, loc="upper center", ncol=5, fontsize=7, columnspacing=1.2, handletextpad=0.4,
                bbox_to_anchor=(0.5, 1.0))
     save(fig, "fig4_scaling")
 

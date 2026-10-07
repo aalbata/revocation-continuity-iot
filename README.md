@@ -1,7 +1,7 @@
 # Revocation continuity benchmark for decentralized IoT identity
 
 This repository contains the benchmark, the continuity profile, the simulator, and the per-run
-results of the article "Revocation Continuity for Decentralized IoT Identity Across Edge
+results of the article "Revocation Continuity for Decentralized IoT Identity across Edge
 Domains" by Ali Al Bataineh and Lakshmana Kumar Ramasamy (Computer Information Science, Higher
 Colleges of Technology, Abu Dhabi, United Arab Emirates).
 
@@ -208,7 +208,7 @@ Across 38 uncensored conditions the mean absolute difference in exposure is 0.51
 
 Every run that was started under the final configuration is included. One earlier attempt at the
 sensitivity manifest with eight parallel runs was discarded in full before analysis, because
-100-device runs exhausted local sockets and 8 of 220 runs failed to start; the manifest was then
+100-device runs exhausted local sockets and 8 of 220 runs failed; the manifest was then
 run again unchanged, with 100-device runs two at a time (`rcbench/batch.py`).
 
 The benchmark devices do not present their credential again while a broker session with an
