@@ -2,7 +2,7 @@
 
 This repository contains the benchmark, the continuity profile, the simulator, and the per-run
 results of the article "Revocation Continuity for Decentralized IoT Identity across Edge
-Domains" by Ali Al Bataineh and Lakshmana Kumar Ramasamy (Computer Information Science, Higher
+Domains in the 6G Era" by Ali Al Bataineh and Lakshmana Kumar Ramasamy (Computer Information Science, Higher
 Colleges of Technology, Abu Dhabi, United Arab Emirates).
 
 The benchmark measures how long a revoked device can still act after its issuer has recorded
